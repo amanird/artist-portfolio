@@ -94,6 +94,23 @@ header {
   right: 1rem;
 }
 
+#close-detail {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: 1px solid #111;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 20;
+}
+
+#close-detail:hover {
+  background: #111;
+  color: #fff;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .grid {
@@ -109,3 +126,4 @@ header {
     border-top: 1px solid #ddd;
   }
 }
+
