@@ -16,18 +16,24 @@
   <section id="gallery" class="grid"></section>
 
   <!-- DETAIL VIEW (hidden by default) -->
-  <section id="detail-view" class="hidden">
-    <button class="nav prev">‹</button>
+<section id="detail-view" class="hidden">
+  
+  <button id="close-detail">✕ Back to Gallery</button>
+  <button class="nav prev">‹</button>
+  
+  <div class="detail-content">
+    <div class="images"></div>
+    <div class="description"></div>
+  
+  </div>
+  
+  <button class="nav next">›</button>
 
-    <div class="detail-content">
-      <div class="images"></div>
-      <div class="description"></div>
-    </div>
+</section>
 
-    <button class="nav next">›</button>
-  </section>
 </main>
 
 <script src="script.js"></script>
 </body>
 </html>
+
