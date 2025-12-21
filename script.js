@@ -1,29 +1,35 @@
 const artworks = [
-  {
-    title: "Untitled #1",
-    date: "2024",
-    description: "This work explores texture and repetition...",
-    images: [
-      "images/work1/img1.jpg",
-      "images/work1/img2.jpg",
-      "images/work1/img3.jpg"
-    ]
-  },
-  {
-    title: "Blue Study",
-    date: "2023",
-    description: "An investigation into blue pigment and light.",
-    images: [
-      "images/work2/img1.jpg",
-      "images/work2/img2.jpg"
-    ]
-  }
-];
+  1, 2, 3, 4, 5, 6, 7
+].map(num => ({
+  title: `Work ${num}`,
+  date: "2024",
+  description: "Detailed description of this artwork goes here.",
+  images: [
+    `images/work${num}/img1.jpg`,
+    `images/work${num}/img2.jpg`,
+    `images/work${num}/img3.jpg`
+  ]
+}));
 
 const gallery = document.getElementById("gallery");
 const detailView = document.getElementById("detail-view");
 const imagesContainer = detailView.querySelector(".images");
 const descriptionContainer = detailView.querySelector(".description");
+
+const closeButton = document.getElementById("close-detail");
+
+closeButton.onclick = closeDetail;
+
+function closeDetail() {
+  detailView.classList.add("hidden");
+  gallery.classList.remove("hidden");
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !detailView.classList.contains("hidden")) {
+    closeDetail();
+  }
+});
 
 let currentIndex = 0;
 
@@ -78,3 +84,4 @@ document.querySelector(".next").onclick = () => {
   currentIndex = (currentIndex + 1) % artworks.length;
   renderDetail();
 };
+
