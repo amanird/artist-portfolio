@@ -1,69 +1,122 @@
+/********************************
+ * ARTWORK DATA
+ ********************************/
+
 const artworks = [
-  1, 2, 3, 4, 5, 6, 7
-].map(num => ({
-  title: `Work ${num}`,
-  date: "2024",
-  description: "Detailed description of this artwork goes here.",
-  images: [
-    `images/work${num}/img1.jpg`,
-    `images/work${num}/img2.jpg`,
-    `images/work${num}/img3.jpg`
-  ]
-}));
+  {
+    id: "work1",
+    title: "Work One",
+    date: "2024",
+    description: "This piece investigates form, repetition, and surface.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  },
+  {
+    id: "work2",
+    title: "Work Two",
+    date: "2024",
+    description: "A study of light and shadow across multiple perspectives.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  },
+  {
+    id: "work3",
+    title: "Work Three",
+    date: "2023",
+    description: "Exploration of scale and spatial perception.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  },
+  {
+    id: "work4",
+    title: "Work Four",
+    date: "2023",
+    description: "Materiality and structure across repeated forms.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  },
+  {
+    id: "work5",
+    title: "Work Five",
+    date: "2022",
+    description: "Gesture, movement, and surface tension.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  },
+  {
+    id: "work6",
+    title: "Work Six",
+    date: "2022",
+    description: "An exploration of scale and viewer proximity.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  },
+  {
+    id: "work7",
+    title: "Work Seven",
+    date: "2021",
+    description: "Early investigations leading toward later work.",
+    images: ["img1.jpg", "img2.jpg", "img3.jpg"]
+  }
+];
+
+/********************************
+ * DOM REFERENCES
+ ********************************/
 
 const gallery = document.getElementById("gallery");
 const detailView = document.getElementById("detail-view");
-const imagesContainer = detailView.querySelector(".images");
-const descriptionContainer = detailView.querySelector(".description");
-
+const imagesContainer = document.querySelector(".detail-content .images");
+const descriptionContainer = document.querySelector(".detail-content .description");
 const closeButton = document.getElementById("close-detail");
-
-closeButton.onclick = closeDetail;
-
-function closeDetail() {
-  detailView.classList.add("hidden");
-  gallery.classList.remove("hidden");
-}
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !detailView.classList.contains("hidden")) {
-    closeDetail();
-  }
-});
 
 let currentIndex = 0;
 
-/* BUILD GRID */
+/********************************
+ * BUILD GALLERY GRID
+ ********************************/
+
 artworks.forEach((art, index) => {
-  const item = document.createElement("div");
+  const item = document.createElement("figure");
   item.className = "grid-item";
+
   item.innerHTML = `
-    <img src="${art.images[0]}" alt="${art.title}">
-    <div class="meta">
-      <div>${art.title}</div>
-      <div>${art.date}</div>
-    </div>
+    <img src="images/${art.id}/${art.images[0]}" alt="${art.title}">
+    <figcaption class="meta">
+      <strong>${art.title}</strong><br>
+      <span>${art.date}</span>
+    </figcaption>
   `;
-  item.onclick = () => openDetail(index);
+
+  item.addEventListener("click", () => openDetail(index));
   gallery.appendChild(item);
 });
 
-/* OPEN DETAIL VIEW */
+/********************************
+ * DETAIL VIEW FUNCTIONS
+ ********************************/
+
 function openDetail(index) {
   currentIndex = index;
+  history.pushState({}, "", `#${artworks[index].id}`);
+  showDetail();
+}
+
+function showDetail() {
   gallery.classList.add("hidden");
   detailView.classList.remove("hidden");
   renderDetail();
 }
 
-/* RENDER DETAIL CONTENT */
+function closeDetail() {
+  history.pushState({}, "", "/");
+  detailView.classList.add("hidden");
+  gallery.classList.remove("hidden");
+}
+
 function renderDetail() {
   const art = artworks[currentIndex];
 
   imagesContainer.innerHTML = "";
-  art.images.forEach(src => {
+
+  art.images.forEach(file => {
     const img = document.createElement("img");
-    img.src = src;
+    img.src = `images/${art.id}/${file}`;
+    img.onload = () => img.classList.add("loaded");
     imagesContainer.appendChild(img);
   });
 
@@ -74,7 +127,10 @@ function renderDetail() {
   `;
 }
 
-/* NAVIGATION */
+/********************************
+ * NAVIGATION CONTROLS
+ ********************************/
+
 document.querySelector(".prev").onclick = () => {
   currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
   renderDetail();
@@ -85,3 +141,34 @@ document.querySelector(".next").onclick = () => {
   renderDetail();
 };
 
+closeButton.onclick = closeDetail;
+
+/********************************
+ * KEYBOARD CONTROLS
+ ********************************/
+
+document.addEventListener("keydown", e => {
+  if (detailView.classList.contains("hidden")) return;
+
+  if (e.key === "ArrowRight") {
+    currentIndex = (currentIndex + 1) % artworks.length;
+    renderDetail();
+  }
+
+  if (e.key === "ArrowLeft") {
+    currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+    renderDetail();
+  }
+
+  if (e.key === "Escape") closeDetail();
+});
+
+/********************************
+ * DEEP LINK SUPPORT
+ ********************************/
+
+window.addEventListener("load", () => {
+  const hash = window.location.hash.replace("#", "");
+  const index = artworks.findIndex(a => a.id === hash);
+  if (index !== -1) openDetail(index);
+});
