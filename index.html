@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tangible Absurdity</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Artist Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -12,29 +13,28 @@
 </header>
 
 <main>
-  <!-- GRID VIEW -->
+
+  <!-- GALLERY GRID -->
   <section id="gallery" class="grid"></section>
 
-  <!-- DETAIL VIEW (hidden by default) -->
-<section id="detail-view" class="hidden">
-  
-  <button id="close-detail">✕ Back to Gallery</button>
-  <button class="nav prev">‹</button>
-  
-  <div class="detail-content">
-    <div class="images"></div>
-    <div class="description"></div>
-  
-  </div>
-  
-  <button class="nav next">›</button>
+  <!-- DETAIL VIEW -->
+  <section id="detail-view" class="hidden">
 
-</section>
+    <button id="close-detail">✕ Back to Gallery</button>
+
+    <button class="nav prev">‹</button>
+
+    <div class="detail-content">
+      <div class="images"></div>
+      <div class="description"></div>
+    </div>
+
+    <button class="nav next">›</button>
+
+  </section>
 
 </main>
 
 <script src="script.js"></script>
 </body>
 </html>
-
-
