@@ -47,15 +47,17 @@ header {
 }
 
 #detail-view {
-  position: relative;
-  height: 100vh;
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: #fafafa;
+  z-index: 100;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .detail-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  height: 100%;
+  height: 100vh;
 }
 
 .detail-content .images {
@@ -83,14 +85,15 @@ header {
 
 /* CLOSE BUTTON */
 #close-detail {
-  position: absolute;
+  position: fixed;
   top: 1rem;
   left: 1rem;
-  background: none;
+  background: rgba(250, 250, 250, 0.9);
   border: 1px solid #111;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  z-index: 20;
+  z-index: 200;
+  backdrop-filter: blur(4px);
 }
 
 #close-detail:hover {
@@ -125,10 +128,18 @@ header {
 
   .detail-content {
     grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .detail-content .images {
+    height: auto;
+    max-height: none;
   }
 
   .detail-content .description {
     border-left: none;
     border-top: 1px solid #ddd;
+    height: auto;
   }
 }
+
