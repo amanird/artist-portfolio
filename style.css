@@ -17,7 +17,7 @@ header {
   text-align: center;
 }
 
-/* GRID */
+/* GALLERY GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -34,20 +34,22 @@ header {
   display: block;
 }
 
-.grid-item .meta {
+.meta {
   margin-top: 0.5rem;
   font-size: 0.9rem;
 }
 
 /* DETAIL VIEW */
 .hidden {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
 }
 
 #detail-view {
   position: relative;
   height: 100vh;
-  overflow: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .detail-content {
@@ -57,22 +59,43 @@ header {
 }
 
 .detail-content .images {
-  overflow-y: auto;
   padding: 2rem;
+  overflow-y: auto;
 }
 
 .detail-content .images img {
   width: 100%;
   margin-bottom: 1rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.detail-content .images img.loaded {
+  opacity: 1;
 }
 
 .detail-content .description {
   padding: 2rem;
   border-left: 1px solid #ddd;
-  position: sticky;
-  top: 0;
   height: 100vh;
   overflow-y: auto;
+}
+
+/* CLOSE BUTTON */
+#close-detail {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: 1px solid #111;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 20;
+}
+
+#close-detail:hover {
+  background: #111;
+  color: #fff;
 }
 
 /* NAV ARROWS */
@@ -94,23 +117,6 @@ header {
   right: 1rem;
 }
 
-#close-detail {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: none;
-  border: 1px solid #111;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  z-index: 20;
-}
-
-#close-detail:hover {
-  background: #111;
-  color: #fff;
-}
-
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .grid {
@@ -121,30 +127,8 @@ header {
     grid-template-columns: 1fr;
   }
 
-  .description {
+  .detail-content .description {
     border-left: none;
     border-top: 1px solid #ddd;
   }
 }
-
-.grid,
-#detail-view {
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
-}
-
-.detail-content img {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.detail-content img.loaded {
-  opacity: 1;
-}
-
-
