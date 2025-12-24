@@ -8,8 +8,24 @@
 </head>
 <body>
 
-<header>
-  <h1>Tangible Absurdity</h1>
+<header class="site-header">
+  <div class="header-left">
+    <h1 id="site-title">Tangible Absurdity</h1>
+  </div>
+
+  <nav class="header-right home-only">
+    <button class="nav-btn">Contact</button>
+    <button class="nav-btn">Commissions</button>
+
+    <div class="mode-wrapper">
+      <button id="mode-btn" class="nav-btn">Mode ▾</button>
+      <div id="mode-menu" class="mode-menu hidden">
+        <button data-mode="light">Light</button>
+        <button data-mode="dark">Dark</button>
+        <button data-mode="absurd">Absurd</button>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <main>
@@ -17,8 +33,18 @@
   <!-- GALLERY GRID -->
   <section id="gallery" class="grid"></section>
 
+  <!-- ARTIST BIO (HOME ONLY, BOTTOM) -->
+  <section id="artist-bio" class="home-only">
+    <p>
+      Tangible Absurdity bio.
+    </p>
+  </section>
+
   <!-- DETAIL VIEW -->
   <section id="detail-view" class="hidden">
+
+    <!-- HEADER CLONE TARGET -->
+    <div id="detail-header"></div>
 
     <button id="close-detail">✕ Back to Gallery</button>
 
@@ -32,6 +58,7 @@
     <button class="nav next">›</button>
 
   </section>
+
 
 </main>
 
