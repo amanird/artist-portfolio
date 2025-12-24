@@ -17,6 +17,8 @@ header {
   text-align: center;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono&family=Libre+Baskerville&family=Orbitron&family=Playfair+Display&family=Rubik+Glitch&family=Space+Grotesk&family=VT323&family=Zilla+Slab&display=swap');
+
 /* GALLERY GRID */
 .grid {
   display: grid;
@@ -48,9 +50,10 @@ header {
 
 #detail-view {
   position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  inset: 0;
   background: #fafafa;
   z-index: 100;
+  overflow-y: auto;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -143,3 +146,244 @@ header {
   }
 }
 
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.header-left h1 {
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid #111;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.nav-btn:hover {
+  background: #111;
+  color: #fff;
+}
+
+.mode-wrapper {
+  position: relative;
+}
+
+.mode-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fafafa;
+  border: 1px solid #111;
+  display: flex;
+  flex-direction: column;
+  z-index: 300;
+}
+
+.mode-menu button {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mode-menu button:hover {
+  background: #111;
+  color: #fff;
+}
+
+.home-only {
+  display: block;
+}
+
+body:not(.home) .home-only {
+  display: none;
+}
+
+#artist-bio {
+  padding: 3rem 2rem 4rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+body.dark {
+  background: #0b0b0b;
+  color: #eee;
+}
+
+body.dark header,
+body.dark #detail-view {
+  background: #0b0b0b;
+}
+
+body.dark .nav-btn {
+  border-color: #eee;
+  color: #eee;
+}
+
+body.dark .nav-btn:hover {
+  background: #eee;
+  color: #000;
+}
+
+body.absurd::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999; /* ABOVE DETAIL VIEW */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0) 20%,
+    rgba(0,0,0,0.6) 35%,
+    rgba(120, 0, 0, 0.85) 100%
+  );
+}
+
+.absurd-messages {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.absurd-messages span {
+  position: absolute;
+  white-space: nowrap;
+  opacity: 0.15;
+  animation: scroll linear infinite;
+}
+
+@keyframes scroll {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100vw); }
+}
+
+#detail-header .site-header {
+  padding-bottom: 0;
+}
+
+/* ========== ABSURD MODE FRAME ========== */
+body.absurd::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0) 35%,
+    rgba(140, 0, 0, 0.9) 100%
+  );
+}
+
+.absurd-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.absurd-text {
+  position: absolute;
+  white-space: nowrap;
+  opacity: 0.18;
+  animation-name: absurd-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes absurd-scroll {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-120vw); }
+}
+
+/* ===== ABSURD RAIN LAYER ===== */
+.absurd-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 998; /* above detail view, below vignette */
+}
+
+.raindrop {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.15);
+  filter: blur(2px);
+  transform: scale(0.2);
+  animation: rain-fall 1.6s ease-in forwards;
+}
+
+@keyframes rain-fall {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+/* ABSURD TEXT LAYER — BEHIND CONTENT */
+.absurd-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1; /* IMPORTANT: below gallery */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* SCROLLING TEXT */
+.absurd-text {
+  position: absolute;
+  right: 100%;
+  white-space: nowrap;
+  opacity: 0.35;
+  color: rgba(200, 0, 0, 0.6);
+  animation-name: absurd-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* ANIMATION */
+@keyframes absurd-scroll {
+  from {
+    transform: translateX(350%);
+  }
+  to {
+    transform: translateX(-350%);
+  }
+}
+
+#gallery,
+#detail-view {
+  position: relative;
+  z-index: 5;
+}
+
+body.absurd {
+  perspective: 800px;
+}
